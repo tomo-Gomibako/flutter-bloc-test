@@ -9,31 +9,51 @@ class Home extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text(title),
+      appBar: AppBar(
+        title: Text(title),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'You have pushed the button this many times:',
+            ),
+            BlocBuilder<CounterBloc, int>(
+              builder: (_, count) {
+                return Text(
+                  '$count',
+                  style: Theme.of(context).textTheme.headline4,
+                );
+              },
+            ),
+          ],
         ),
-        body: Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              Text(
-                'You have pushed the button this many times:',
-              ),
-              BlocBuilder<CounterCubit, int>(
-                builder: (_, count) {
-                  return Text(
-                    '$count',
-                    style: Theme.of(context).textTheme.headline4,
-                  );
-                },
-              ),
-            ],
+      ),
+      floatingActionButton: Column(
+        crossAxisAlignment: CrossAxisAlignment.end,
+        mainAxisAlignment: MainAxisAlignment.end,
+        children: <Widget>[
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
+              tooltip: 'Increment',
+              child: const Icon(Icons.add),
+              onPressed: () =>
+                  context.bloc<CounterBloc>().add(CounterEvent.increment),
+            ),
           ),
-        ),
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => context.bloc<CounterCubit>().increment(),
-          tooltip: 'Increment',
-          child: Icon(Icons.add),
-        ));
+          Padding(
+            padding: const EdgeInsets.symmetric(vertical: 5.0),
+            child: FloatingActionButton(
+              tooltip: 'Decrement',
+              child: const Icon(Icons.remove),
+              onPressed: () =>
+                  context.bloc<CounterBloc>().add(CounterEvent.decrement),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }

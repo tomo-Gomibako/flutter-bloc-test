@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: BlocProvider(
-        create: (_) => CounterCubit(),
+        create: (_) => CounterBloc(),
         child: Home(title: 'Flutter Demo Home Page'),
       ),
     );

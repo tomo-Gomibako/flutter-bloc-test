@@ -1,9 +1,23 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
+enum CounterEvent { increment, decrement }
 
-  void increment() {
-    emit(state + 1);
+class CounterBloc extends Bloc<CounterEvent, int> {
+  CounterBloc() : super(0);
+
+  Stream<int> mapEventToState(CounterEvent event) async* {
+    switch (event) {
+      case CounterEvent.increment:
+        yield state + 1;
+        break;
+      case CounterEvent.decrement:
+        if (state <= 0) {
+          break;
+        }
+        yield state - 1;
+        break;
+      default:
+        addError(Exception('unsupported event'));
+    }
   }
 }
