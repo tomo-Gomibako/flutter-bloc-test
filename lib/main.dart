@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rx/widgets/home.dart';
 import 'package:flutter_rx/blocs/counter.dart';
 
@@ -16,9 +16,8 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      home: Provider<CounterBloc>(
-        create: (context) => CounterBloc(),
-        dispose: (context, bloc) => bloc.dispose(),
+      home: BlocProvider(
+        create: (_) => CounterCubit(),
         child: Home(title: 'Flutter Demo Home Page'),
       ),
     );

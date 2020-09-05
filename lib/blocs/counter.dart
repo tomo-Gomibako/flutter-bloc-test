@@ -1,22 +1,9 @@
-import 'dart:async';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
-class CounterBloc {
-  final _actionController = StreamController<void>();
-  final _countController = StreamController<int>();
+class CounterCubit extends Cubit<int> {
+  CounterCubit() : super(0);
 
-  Sink<void> get increment => _actionController.sink;
-  Stream<int> get count => _countController.stream;
-
-  int _count = 0;
-
-  CounterBloc() {
-    _actionController.stream.listen((_) {
-      _countController.sink.add(++_count);
-    });
-  }
-
-  void dispose() {
-    _actionController.close();
-    _countController.close();
+  void increment() {
+    emit(state + 1);
   }
 }

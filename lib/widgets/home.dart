@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rx/blocs/counter.dart';
 
 class Home extends StatelessWidget {
@@ -8,8 +8,6 @@ class Home extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final counterBloc = Provider.of<CounterBloc>(context);
-
     return Scaffold(
         appBar: AppBar(
           title: Text(title),
@@ -21,12 +19,10 @@ class Home extends StatelessWidget {
               Text(
                 'You have pushed the button this many times:',
               ),
-              StreamBuilder(
-                initialData: 0,
-                stream: counterBloc.count,
-                builder: (context, snapshot) {
+              BlocBuilder<CounterCubit, int>(
+                builder: (_, count) {
                   return Text(
-                    '${snapshot.data}',
+                    '$count',
                     style: Theme.of(context).textTheme.headline4,
                   );
                 },
@@ -35,7 +31,7 @@ class Home extends StatelessWidget {
           ),
         ),
         floatingActionButton: FloatingActionButton(
-          onPressed: () => counterBloc.increment.add(null),
+          onPressed: () => context.bloc<CounterCubit>().increment(),
           tooltip: 'Increment',
           child: Icon(Icons.add),
         ));
