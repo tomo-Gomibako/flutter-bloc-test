@@ -27,6 +27,9 @@ class Home extends StatelessWidget {
                 );
               },
             ),
+            RaisedButton(
+                onPressed: () => Navigator.of(context).pushNamed("/list"),
+                child: new Text('List')),
           ],
         ),
       ),
@@ -37,6 +40,7 @@ class Home extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: FloatingActionButton(
+              heroTag: 'Increment',
               tooltip: 'Increment',
               child: const Icon(Icons.add),
               onPressed: () =>
@@ -46,6 +50,7 @@ class Home extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.symmetric(vertical: 5.0),
             child: FloatingActionButton(
+              heroTag: 'Decrement',
               tooltip: 'Decrement',
               child: const Icon(Icons.remove),
               onPressed: () =>
